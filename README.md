@@ -16,7 +16,7 @@ BFSK has been represented as a series of 0 or 1, coresponding to two frequencies
     if signal == 0
         if Amplitude+noise1 > noise2
             return 0;
-        else<br />
+        else
             return 1;
         end
     else
