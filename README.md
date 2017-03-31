@@ -9,7 +9,8 @@ Final.m Shows, through abstract represenation of the signals, how well each of t
 
 _________________________________
 
-A note on BFSK
+_A note on BFSK_
+
 BFSK has been represented as a series of 0 or 1, coresponding to two frequencies, f0 and f1.  When determining if a recieved signal represents a 0 or 1, the signal is run through 2 low pass filters, coresponding to the two frequencies.  The filtering either returns the amplitude of the wave, or 0, although these values are not exact because of noise added to the signal through transmission and the low pass filters.  Whichever filter returns the highest value, the value the coresponding frequenquency represents is considered the to be the value of the bit.  This can be represented as ::
 
     if signal == 0
