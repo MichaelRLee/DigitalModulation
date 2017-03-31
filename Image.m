@@ -13,6 +13,7 @@ image = imread(fullFileName);
 imageBin = dec2bin(image) - '0'; % subtract 0 to convert to int
 signal = reshape(imageBin, [], 1); % convert matrix to vector
 bits = length(signal);
+variance = 0.25
 
 ASKsignal = signal;
 PSKsignal = signal;
@@ -36,10 +37,12 @@ ASKdemod = zeros(length(ASKsignal),1);
 PSKdemod = zeros(length(PSKsignal),1);
 FSKdemod = zeros(length(FSKsignal),1);
 
-noise = normrnd(0,sqrt(0.25),bits,1); % Generate Noise
+noise = normrnd(0,sqrt(variance),bits,1); % Generate Noise
 % Adds noise to signal
 PSKy = noise+PSKsignal;
 ASKy = noise+ASKsignal;
+noise1 = normrnd(0,sqrt(variance,bits,1);
+
 
  for j = 1:bits
     % ASK demodulation
@@ -57,6 +60,19 @@ ASKy = noise+ASKsignal;
     end
         
     % FSK demodulation
+    if FSKsignal == 0           % If recived signal should be a 0
+        if A1+noise(j) > noise1 % Check if the value from the 0 LPF is larger than the value from the 1 LPF
+            FSKdemod(j) = 0;
+        else
+            FSKdemod(j) = 1;
+        end
+    else                        % Opposite of previous
+        if A1+noise1(j) > noise
+            FSKdemod(j) = 1;
+        else
+            FSKdemod(j) = 0;
+        end
+    end
    
  end
 
@@ -69,6 +85,11 @@ PSKstr = num2str(PSKdemod);
 PSKmat = reshape(PSKstr, size(imageBin, 1), size(imageBin, 2));
 PSKdec = bin2dec(PSKmat);
 PSKimg = reshape(PSKdec, size(image, 1), size(image, 2));
+
+FSKstr = num2str(FSKdemod);
+FSKmat = reshape(FSKstr, size(imageBin, 1), size(imageBin, 2));
+FSKdec = bin2dec(FSKmat);
+FSKimg = reshape(FSKdec, size(image, 1), size(image, 2));
 
 % og image
 % imshow(image);
