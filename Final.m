@@ -52,7 +52,7 @@ for i = 1:length(variance)
         if (PSKy(j) > PSKthreshold && signal(j) ~= 1)||(PSKy(j) <= PSKthreshold && signal(j) ~= 0)
             PSK_BER(i) = PSK_BER(i)+1;
         end
-        % We compare the values obtained by the low pass filters.  The way that this works can be found in README.md
+        % We compare the values obtained by the low pass filters.  The way that this works can be found at the bottom of the file
         if FSKy0(j) > (FSKy1(j))
             FSK_BER(i) = FSK_BER(i)+1;
         end
@@ -80,3 +80,32 @@ title('Bit Error Rate VS Variance for Digital Modulations Methods');
 xlabel('sigma^2');
 ylabel('BER');
 legend('ASK BER','PSK BER','FSK BER', 'Theoretical ASK BER', 'Theoretical PSK BER', 'Theoretical FSK BER')
+
+
+
+
+
+
+% FSK
+%
+% The code for FSK looks something like:
+%
+%   if signal == 0
+%         if Amplitude+noise1 > noise2
+%             return 0;
+%        else
+%             return 1;
+%       end
+%   else
+%         if Amplitude+noise2 > noise1
+%             return 1;
+%       else
+%             return 0;
+%       end
+%   end
+%
+% It can be observed that we have an incorrect bit only when the amplitude plus some noise is less than some other random noise.  Thus, the lines :
+
+%   if FSKy0(j) > (FSKy1(j))
+%         FSK_BER(i) = FSK_BER(i)+1;
+%   end
